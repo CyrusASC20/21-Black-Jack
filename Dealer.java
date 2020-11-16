@@ -22,16 +22,14 @@ public class Dealer{
         else{
           validAmount = true;
         }
-        //List<Book> books = bookService . findBooksCheaperThan(intCost);
+ 
       }
       catch (NumberFormatException e) {
-        //exception = false;
-        //while(exception == false){      
+   
         System.out.println("This is not an appropriate value");
       }
       catch (InputMismatchException rf) {
-        //exception = false;
-        //while(exception == false){
+
         System.out.println("This is not an appropriate value");
       }
     }

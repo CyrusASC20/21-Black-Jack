@@ -2,96 +2,91 @@ import java.util.*;
 
 public class OutlineOfCards {
 public static void main(String[] args){
-int abc = (int)Math.sqrt(Integer.MAX_VALUE/890);
-int def = (int)Math.sqrt(Integer.MAX_VALUE/123);
-int bankAccount = (int)((Math.random()*abc)+123);
+//initializing starting variables for bank account  
+int pBank = (int)Math.sqrt(Integer.MAX_VALUE/890);
+int bankAccount = (int)((Math.random()*pBank)+123);
+//while loop that runs the program until the player runs out of money
 while (bankAccount > 0){
+  //the deck of cards is created
   String[] Suit = {"Clubs", "Diamonds", "Hearts", "Spades"};
   String[] Name = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
   int[] Value = {11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
-  int a = 0;
-  int b = 0;
-  int c = 0;
-  String d = "";
+  int sNum = 0;
+  int nNum = 0;
+  int vNum = 0;
+  String cardStr = "";
   ArrayList<String> deck = new ArrayList<String>();
   ArrayList<String> playerCards = new ArrayList<String>();
   ArrayList<String> computerCards = new ArrayList<String>();
   int numberOfAces = 0;
   int compNumberOfAces = 0;
-  while (a < 4 ){
-    while (b < 13){
-      Cards newCard = new Cards(Suit[a], Name[b], Value[b]);
+  while (sNum < 4 ){
+    while (nNum < 13){
+      Cards newCard = new Cards(Suit[sNum], Name[nNum], Value[nNum]);
       deck.add(newCard.toString());
-      b++;
+      nNum++;
     }
-    b = 0;
-    a++;
+    nNum = 0;
+    sNum++;
   }
-// converting array to a List
-//List<String> list = Arrays.asList(stringArray);
-// Shuffling list elements
+  // Shuffling the deck of cards 
   Collections.shuffle(deck);    
   boolean number = true;
   int compAccount = 0;
   System.out.println("Your cards are:");
-  //System.out.println();
+  //the player's first cards are dealt 
   int compVal = 0; 
   int val = 0; 
   int card = 3;
-  int zero = 0;
-  int one = 1;
-  int two = 2;
-  int three = 3;
-  int four = 4;
-  //int ran = (int)(Math.random()*deck.size());
-  String q = deck.get(zero++);
-  String suitOrigin = q.substring(0,3);
-  //int ran2 = (int)(Math.random()*deck.size());
-  String f = deck.get(one++);
-  String suitOrigin2 = f.substring(0,3);
-  //System.out.println(q);
-  playerCards.add(q);
-  int length1 = q.length()-1;
-//System.out.println(e.substring(length1));
-  String firstval = q.substring(length1-1);
-  int g = Integer.parseInt(firstval.trim());
+  int nextCardIndex = 0;
+
+  String fCard = deck.get(nextCardIndex++);
+  String suitOrigin = fCard.substring(0,3);
+
+  String sCard = deck.get(nextCardIndex++);
+  String suitOrigin2 = sCard.substring(0,3);
+  
+  playerCards.add(fCard);
+  int length1 = fCard.length()-1;
+
+  String firstVal = fCard.substring(length1-1);
+  int fVal = Integer.parseInt(firstVal.trim());
   if (suitOrigin.equals("Ace")){
     numberOfAces++;
   }
-  //System.out.println(g);
-  //System.out.println(f);
-  playerCards.add(f);
-  int length2 = f.length()-1;
-  //System.out.println(f.substring(length2-1));
-  String secondval = f.substring(length2-1);
-  int h = Integer.parseInt(secondval.trim());
+
+  playerCards.add(sCard);
+  int length2 = sCard.length()-1;
+
+  String secondVal = sCard.substring(length2-1);
+  int sVal = Integer.parseInt(secondVal.trim());
   if (suitOrigin2.equals("Ace")){
     numberOfAces++;
   }
-  //System.out.println(g+h);
-  val += g+h;
-  int orival = val;
+
+  val += fVal+sVal;
+  int oriVal = val;
   System.out.println(playerCards);
   if (numberOfAces>=1){
-  System.out.println("Your current value is: " + val + " or " + (val-10));  
+    System.out.println("Your current value is: " + val + " or " + (val-10));  
   }
   else{
-  System.out.println("Your current value is: " + val);
+    System.out.println("Your current value is: " + val);
   }
-  //System.out.println(e.getName());
+
   
   System.out.println();
-  
-  String compi = deck.get(two++);
-  //System.out.println(compi);
-  computerCards.add(compi);
-  int complength3 = compi.length()-1;
-  //System.out.println(i.substring(length3));
-  String compthirdval = compi.substring(complength3-1);
-  int compj = Integer.parseInt(compthirdval.trim());
-  //System.out.println(compthirdval);
-  compVal += compj;
-  //System.out.println(compj);
+  //the computer's first cards are dealt
+  String compHCard = deck.get(nextCardIndex++);
+
+  computerCards.add(compHCard);
+  int compLength3 = compHCard.length()-1;
+
+  String compThirdVal = compHCard.substring(compLength3-1);
+  int compHCardVal = Integer.parseInt(compThirdVal.trim());
+
+  compVal += compHCardVal;
+
   System.out.println("The computer's first card is " + computerCards);
   System.out.println("The computer's current value is: " + compVal);
   
@@ -100,42 +95,39 @@ while (bankAccount > 0){
   System.out.println("You have $" + bankAccount + " in your bank account.");
   
 
-  
-  Scanner betAmount = new Scanner(System.in);
+  //the user inputs the amount of money they will bet
+  Scanner betamount = new Scanner(System.in);
   String input;
   Integer amount = 0;
-  bankAccount = bankAccount;
-  boolean validAmount = false;
-  Dealer mrD = new Dealer();
-  while (validAmount == false){
-    amount = mrD.getAmount();
-    //System.out.println(amount);
+  boolean validamount = false;
+  Dealer mrD = new Dealer();//creating a new function with from the Dealer.java file
+  while (validamount == false){
+    amount = mrD.getAmount();//the player is asked how much they would like to bet; fuction checks if input is acceptable
+
     if (amount > bankAccount){
       System.out.println("You do not have enough money in your account to bet the amount you stated. Please bet a smaller amount.");
-      validAmount = false;
+      validamount = false;
     }
     else{
-      validAmount = true;
+      validamount = true;
       bankAccount -= amount;
       System.out.println("You have taken $" + amount + " from your bank account. You have $" + bankAccount + " remaining."); 
     }
   }
-  //System.out.println("You have $" + bankAccount + " in your bank account.");
+
   System.out.println("Your cards are: "+playerCards);
   if (numberOfAces>=1){
-  System.out.println("Your current value is: " + val + " or " + (val-10));  
+    System.out.println("Your current value is: " + val + " or " + (val-10));  
   }
   else{
-  System.out.println("Your current value is: " + val);
+    System.out.println("Your current value is: " + val);
   }
   System.out.println();
   
-  //System.out.println("Would you like a hit? please answer yes or no");
-  //Scanner hitOrNo = new Scanner(System.in);
-  //String answer = hitOrNo.nextLine();  // Read user input
+
  
   
-  
+  //if player gets Blackjack, they win and a new game begins
   if (val == 21){  
     System.out.println(val); 
     System.out.println("You've yot Blackjack! You've won!!");
@@ -156,208 +148,216 @@ while (bankAccount > 0){
     System.out.println();
   }
   else{
-    
+    //player is asked if they would like to double down
     boolean hit = true;
-    boolean dew = true;
-    dew = mrD.getAnswer("Would you like to double down? You can double your bet, but only recieve one more card. Please answer yes or no");
-      System.out.println("Your cards are: "+playerCards);
-      if (numberOfAces>=1){
-        System.out.println("Your current value is: " + val + " or " + (val-10));  
-      }
-      else{
-        System.out.println("Your current value is: " + val);
-      }
-      System.out.println();
-      if(dew == true){
-        if (amount*2>=bankAccount){
-          System.out.println("You do not have enough money to double your bet");
-          dew = false;
-          System.out.println("Your cards are: "+playerCards);
-          if (numberOfAces>=1){
-            System.out.println("Your current value is: " + val + " or " + (val-10));  
-          }
-          else{
-            System.out.println("Your current value is: " + val);
-          }
-          System.out.println();
+    boolean dDown = true;
+    dDown = mrD.getAnswer("Would you like to double down? You can double your bet, but only recieve one more card. Please answer yes or no");//player is asked whether or not they would like to double down; function cheacks if input is acceptable
+    System.out.println("Your cards are: "+playerCards);
+    if (numberOfAces>=1){
+      System.out.println("Your current value is: " + val + " or " + (val-10));  
+    }
+    else{
+      System.out.println("Your current value is: " + val);
+    }
+    System.out.println();
+    if(dDown == true){
+      if (amount>=bankAccount){
+        System.out.println("You do not have enough money to double your bet");
+        dDown = false;
+        System.out.println("Your cards are: "+playerCards);
+        if (numberOfAces>=1){
+          System.out.println("Your current value is: " + val + " or " + (val-10));  
         }
         else{
-          amount *= 2;
-          String i = deck.get(three++);
-          System.out.println(i);
-          String suit = i.substring(0,3);
-          System.out.println(suit);
-          
-          int length3 = i.length()-1;
-          //System.out.println(i.substring(length3));
-          String thirdval = i.substring(length3-1);
-          int j = Integer.parseInt(thirdval.trim());
-          if (suit.equals("Ace")){
-            numberOfAces++;
-          }
-          if (val + j > 21 && numberOfAces==1){
-            val-=10;
-            numberOfAces--;
-          }
-          System.out.println(j);
-          val += j;
-          playerCards.add(i);
-          System.out.println("total value: " + val);
-          System.out.println("Your cards are: "+playerCards);
-          if (numberOfAces>=1){
-  System.out.println("Your current value is: " + val + " or " + (val-10));  
-          }
-          else{
-            System.out.println("Your current value is: " + val);
-  }
-          System.out.println();
+          System.out.println("Your current value is: " + val);
         }
+        System.out.println();
       }
-      if (dew == false){
-        while ( val < 21 && hit == true){
-          hit = mrD.getAnswer("Would you like a hit? please answer yes or no");
-          if (hit == false){
-            System.out.println("You have chosen not to recieve another card, now you are facing off against the computer."); 
-            //System.out.println(orival);
+      else{
+        bankAccount -= amount;
+        System.out.println("Your current bank account balance is $"+bankAccount);
+        String hCard = deck.get(nextCardIndex++);
+        System.out.println("You have been dealt the " + hCard);
+        String suit = hCard.substring(0,3);
+
+        
+        int length3 = hCard.length()-1;
+
+        String thirdVal = hCard.substring(length3-1);
+        int hCardVal = Integer.parseInt(thirdVal.trim());
+        if (suit.equals("Ace")){
+          numberOfAces++;
+        }
+        if (val + hCardVal > 21 && numberOfAces==1){
+          val-=10;
+          numberOfAces--;
+        }
+
+        val += hCardVal;
+        playerCards.add(hCard);
+        System.out.println("total value: " + val);
+        System.out.println("Your cards are: "+playerCards);
+        if (numberOfAces>=1){
+          System.out.println("Your current value is: " + val + " or " + (val-10));  
+        }
+        else{
+          System.out.println("Your current value is: " + val);
+        }
+        System.out.println();
+      }
+    }
+    //if the player does not want to double down, they are asked if they would like to recieve another card
+    if (dDown == false){
+      while ( val < 21 && hit == true){
+        hit = mrD.getAnswer("Would you like a hit? please answer yes or no"); //player is asked whether or not they would like to double down; function cheacks if input is acceptable
+        if (hit == false){
+          System.out.println("You have chosen not to recieve another card, now you are facing off against the computer.");
+
+        }
+        else if (hit == true){
+          if (hit == false){ 
+            break;
           }
           else if (hit == true){
-            if (hit == false){ 
-          break;
+            //player recieves a new card
+            String hCard = deck.get(nextCardIndex++);
+            System.out.println("You have been dealt the " + hCard);
+
+            String suit = hCard.substring(0,3);
+
+            
+            int length3 = hCard.length()-1;
+
+            String thirdVal = hCard.substring(length3-1);
+            int hCardVal = Integer.parseInt(thirdVal.trim());
+            if (suit.equals("Ace")){
+              numberOfAces++;
             }
-            else if (hit == true){
-              //System.out.println(answer);
-              String i = deck.get(three++);
-              //System.out.println(i);
-              String suit = i.substring(0,3);
-              //System.out.println(suit);
-              
-              int length3 = i.length()-1;
-              //System.out.println(i.substring(length3));
-              String thirdval = i.substring(length3-1);
-              int j = Integer.parseInt(thirdval.trim());
-              if (suit.equals("Ace")){
-                numberOfAces++;
-              }
-              if (val + j > 21 && numberOfAces==1){
-            val-=10;
-            numberOfAces--;
-              }
-              //System.out.println(j);
-              val += j;
-              playerCards.add(i);
-              //System.out.println("total value: " + val);
-              System.out.println("Your cards are: "+playerCards);
-              if (numberOfAces>=1){
-                System.out.println("Your current value is: " + val + " or " + (val-10));  
-              }
-              else{
-  System.out.println("Your current value is: " + val);
-              }
-              System.out.println();
+            if (val + hCardVal > 21 && numberOfAces==1){
+              val-=10;
+              numberOfAces--;
             }
-          }  
-        }
+            //value of the player's hand is changed based on the card they were dealt
+            val += hCardVal;
+            playerCards.add(hCard);
+
+            System.out.println("Your cards are: "+playerCards);
+            if (numberOfAces>=1){
+              System.out.println("Your current value is: " + val + " or " + (val-10));  
+            }
+            else{
+              System.out.println("Your current value is: " + val);
+            }
+            System.out.println();
+          }
+        }  
       }
-      if (val > 21){  
-        System.out.println(val); 
-        System.out.println("Sorry, you busted! You lost!");
-        if(dew == true){
-        bankAccount = bankAccount-amount;
+    }
+    if (val > 21){  
+      System.out.println(val); 
+      System.out.println("Sorry, you busted! You lost!");
+      //if the players value of their hand goes over 21 and they chose to double down, double their original bet is taken from their account
+      if(dDown == true){
+
         System.out.println("Your current bank account balance is $"+bankAccount);
-        }
-        else{
-        bankAccount = bankAccount;
-        System.out.println("Your current bank account balance is $"+bankAccount);
-        }
       }
       else{
-        while (compVal < 17){
-          //System.out.println(compi);
-        compi = deck.get(four++);
-        computerCards.add(compi);
-        String compSuit = compi.substring(0,3);
+        
+        System.out.println("Your current bank account balance is $"+bankAccount);
+      }
+    }
+    else{
+      while (compVal < 17){
+        //computer is dealth a new card
+        compHCard = deck.get(nextCardIndex++);
+        System.out.println("The computer has been dealt the " + compHCard);
+        computerCards.add(compHCard);
+        String compSuit = compHCard.substring(0,3);
         System.out.println();
         System.out.println("Computer's Cards:");
         System.out.println(computerCards);
-        complength3 = compi.length()-1;
-        //System.out.println(i.substring(length3));
-        compthirdval = compi.substring(complength3-1);
-        compj = Integer.parseInt(compthirdval.trim());
+        compLength3 = compHCard.length()-1;
+
+        compThirdVal = compHCard.substring(compLength3-1);
+        compHCardVal = Integer.parseInt(compThirdVal.trim());
         if (compSuit.equals("Ace")){
           compNumberOfAces++;
         }
-        if (compVal + compj > 21 && compNumberOfAces ==1){
+        if (compVal + compHCardVal > 21 && compNumberOfAces ==1){
           compVal-=10;
           compNumberOfAces--;
         }
-        //System.out.println(compthirdval);
-        compVal += compj;
+        //the value of the computer's hand changes based on the value of the new card
+        compVal += compHCardVal;
         System.out.println("Computer value: " + compVal);
-        }
+      }
+      //the different possible outcomes of the game. if the player had chosen to double down, they would have recieved double the earnings and if they lost they would have lost double the losses
       if (compVal > 21){
         System.out.println("The computer has busted. You have won!");
-        if(dew == true){
-        bankAccount += (amount*2)*2;
-        System.out.println("Your current bank account balance is $"+bankAccount);
+        if(dDown == true){
+          bankAccount += (amount*2)*2;
+          System.out.println("Your current bank account balance is $"+bankAccount);
         }
         else{
-        bankAccount += amount*2;
-        System.out.println("Your current bank account balance is $"+bankAccount);
+          bankAccount += amount*2;
+          System.out.println("Your current bank account balance is $"+bankAccount);
         }
       }
       else if (compVal > val && compVal <= 21){
         System.out.println("The computer has a greater value. You have lost!!");
-        if(dew == true){
-        bankAccount = bankAccount-amount;
+        if(dDown == true){
+          
         System.out.println("Your current bank account balance is $"+bankAccount);
         }
         else{
-        bankAccount = bankAccount;
-        System.out.println("Your current bank account balance is $"+bankAccount);
-      }
+          
+          System.out.println("Your current bank account balance is $"+bankAccount);
+        }
       }
       else if (compVal < val && val <= 21){
         System.out.println("You have a greater value. You have won!");
-        if(dew == true){
-        bankAccount += (amount*2)*2;
-        System.out.println("Your current bank account balance is $"+bankAccount);
+        if(dDown == true){
+          bankAccount += (amount*2)*2;
+          System.out.println("Your current bank account balance is $"+bankAccount);
         }
         else{
-        bankAccount += amount*2;
-        System.out.println("Your current bank account balance is $"+bankAccount);
-      }
+          bankAccount += amount*2;
+          System.out.println("Your current bank account balance is $"+bankAccount);
+        }
       }
       else if (val == compVal ){   
         System.out.println(val); 
         System.out.println("It is a tie, which means you have won!");
-        if(dew == true){
-        bankAccount += (amount*2)*2;
-        System.out.println("Your current bank account balance is $"+bankAccount);
+        if(dDown == true){
+          bankAccount += (amount*2)*2;
+          System.out.println("Your current bank account balance is $"+bankAccount);
         }
         else{
-        bankAccount += amount*2;
-        System.out.println("Your current bank account balance is $"+bankAccount);
+          bankAccount += amount*2;
+          System.out.println("Your current bank account balance is $"+bankAccount);
+        }
       }
-    }
       
-    System.out.println();
-    System.out.println("|||New Game|||");
-    System.out.println("|||New Game|||");
-    System.out.println("|||New Game|||");
-    System.out.println();
+      
+    }
+    
+    
+    
   }
-  
-  
+  //after the player has won or lost, a new game is created
+  System.out.println();
+  System.out.println("|||New Game|||");
+  System.out.println("|||New Game|||");
+  System.out.println("|||New Game|||");
+  System.out.println();
   
 }
-
+//once the player's bank account is empty, the game is over
 System.out.println();
 System.out.println("|||Game Over|||");
 System.out.println("|||Game Over|||");
 System.out.println("|||Game Over|||");
 System.out.println();
-
-}
 }
 }
 
